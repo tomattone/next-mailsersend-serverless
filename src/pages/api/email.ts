@@ -1,34 +1,46 @@
+import { Client } from '@nurodev/mailersend.ts'
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { RequestProps, ResponseProps } from '../../services/interfaces'
 
-const Recipient = require('mailersend').Recipient
-const EmailParams = require('mailersend').EmailParams
-const MailerSend = require('mailersend')
+import { EmailProps, SendEmailResponse } from '../../services/interfaces'
 
 const { MAILERSEND_TOKEN } = process.env
 
-const mailersend = new MailerSend({
-  api_key: MAILERSEND_TOKEN,
-})
-
-export default function handler(
+export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<ResponseProps>
+  res: NextApiResponse
 ) {
-  const data: RequestProps = req.body
-  const recipients = [new Recipient(data.to)]
+  try {
+    // Get post data
+    const data: EmailProps = req.body
 
-  const emailParams = new EmailParams()
-    .setFrom(data.from)
-    .setFromName(data.as)
-    .setRecipients(recipients)
-    .setReplyTo(data.from)
-    .setReplyToName(data.as)
-    .setSubject(data.subject)
-    .setHtml(data.message)
-    .setText(data.message.replace(/(<([^>]+)>)/gi, ''))
+    // Transform arrays to recipient objects
+    const cc: any = data.cc?.map((item) => new Object({ email: item }))
+    const bcc: any = data.bcc?.map((item) => new Object({ email: item }))
 
-  mailersend.send(emailParams)
+    // Error if method isnt POST
+    if (req.method !== 'POST') {
+      res.status(400).json({ status: 400, message: 'Not found' })
+    }
 
-  res.status(200).json({ status: 'Email successfully sent' })
+    const api = new Client(MAILERSEND_TOKEN || '')
+
+    // Send e-mail :)
+    const result: SendEmailResponse = await api.sendEmail({
+      from: {
+        email: data.from,
+        name: data.as,
+      },
+      to: [{ email: data.to }],
+      cc: cc,
+      bcc: bcc,
+      subject: data.subject,
+      html: data.message,
+      text: data.message.replace(/(<([^>]+)>)/gi, ''),
+    })
+    // Return success
+    res.status(200).json(result)
+  } catch (error: any) {
+    // Return error :(
+    res.status(error.status).json(error)
+  }
 }

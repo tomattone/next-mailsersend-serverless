@@ -1,4 +1,4 @@
-export type RequestProps = {
+export type EmailProps = {
   to: string
   from: string
   as: string
@@ -8,6 +8,22 @@ export type RequestProps = {
   bcc?: [string]
   attach?: File
 }
-export type ResponseProps = {
-  status: string
-}
+
+export type SendEmailResponse =
+  | {
+      success: true
+    }
+  | {
+      errors: Record<string, Array<string>>
+      message: string
+      success: false
+      warning?: Array<{
+        type: string
+        warning: string
+        recipients: Array<{
+          email: string
+          name: string
+          reasons: Array<string>
+        }>
+      }>
+    }
