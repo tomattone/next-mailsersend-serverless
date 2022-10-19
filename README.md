@@ -1,7 +1,29 @@
-# Serverless Mail API
+<div align="center">
+  <h1>
+    <br/>
+    <br/>
+    📩
+    <br />
+    next-mailsersend-serverless
+    <br />
+    <br />
+    <br />
+    <br />
+  </h1>
+  <div>
+    <br />
+    Sending emails with Mailersend (https://www.mailersend.com/) and Next.js (https://nextjs.org/) (not spams 😅).
+    <br />
+    <br />
+  
+[![Docs](https://img.shields.io/badge/-Docs-blue.svg?style=for-the-badge)](https://github.com/tomattone/react-ad-manager)
 
-Sending emails with [Mailersend](https://www.mailersen📧d.com/) and [Next.js](https://nextjs.org/) (not spams 😅).
-<br /><br />
+  </div>
+  <br />
+  <br />
+</div>
+
+<br />
 
 # Set-up
 
