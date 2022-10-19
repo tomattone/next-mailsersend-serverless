@@ -12,7 +12,7 @@
   </h1>
   <div>
     <br />
-    Sending emails with Mailersend (https://www.mailersend.com/) and Next.js (https://nextjs.org/) (not spams 😅).
+    Sending transactionals emails with Mailersend API (https://www.mailersend.com/) and Next.js (https://nextjs.org/) (not spams 😅).
     <br />
     <br />
   
