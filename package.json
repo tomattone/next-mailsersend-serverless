@@ -1,7 +1,7 @@
 {
-  "name": "email-serveless-api",
+  "name": "next-mailsersend-serverless",
   "version": "0.1.0",
-  "description": "A Serverless function to send e-mail (not spams 😅)",
+  "description": "Send transactionals emails with Mailersend API and Next.js (not spams 😅)",
   "author": "Armando Tomazzoni Junior",
   "license": "MIT",
   "scripts": {
